@@ -21,7 +21,10 @@ class SimpleNav extends Component {
   makeMenu() {
     return this.state.links.map(link => (
       <li key={link.id} className="nav-item">
-        <a className="nav-link " href={link.link}>
+        <a
+          className={link.active === true ? "nav-link active" : "nav-link"}
+          href={link.link}
+        >
           <span data-feather="home" />
           {link.name}
         </a>
