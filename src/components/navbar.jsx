@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+// making this a Stateless Functional Component sfc
+
 class NavBar extends Component {
   state = {};
   render() {
