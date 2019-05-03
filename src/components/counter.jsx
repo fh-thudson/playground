@@ -1,28 +1,28 @@
 import React, { Component } from "react";
 
 class Counter extends Component {
-  state = {
-    value: this.props.counter.value,
-    imageURL: "https://picsum.photos/200",
-    tags: ["tag1", "tag2", "tag3"]
-  };
+  // state = {
+  //   value: this.props.counter.value,
+  //   imageURL: "https://picsum.photos/200",
+  //   tags: ["tag1", "tag2", "tag3"]
+  // };
 
   styles = {
     fontSize: "10px",
     fontWeight: "bold"
   };
 
-  renderTags() {
-    if (this.state.tags.length === 0) return <p>There are no Tags!</p>;
+  // renderTags() {
+  //   if (this.state.tags.length === 0) return <p>There are no Tags!</p>;
 
-    return (
-      <ul>
-        {this.state.tags.map(tag => (
-          <li key={tag}> {tag} </li>
-        ))}
-      </ul>
-    );
-  }
+  //   return (
+  //     <ul>
+  //       {this.state.tags.map(tag => (
+  //         <li key={tag}> {tag} </li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   //   constructor() {
   //     super();
@@ -39,13 +39,14 @@ class Counter extends Component {
           {this.formatCount()}
         </span>
         <button
-          onClick={this.handleIncrement}
+          // onClick={this.handleIncrement}
+          onClick={() => this.props.handleIncrement(this.props.counter)}
           className="btn btn-primary btn-sm"
         >
           +
         </button>
         <button
-          onClick={this.resetCountToZero}
+          // onClick={this.resetCountToZero}
           className="btn btn-warning btn-sm m-2"
         >
           reset
@@ -56,21 +57,22 @@ class Counter extends Component {
         >
           delete
         </button>
-        {this.state.tags.length === 0 && "Please create a new tag!"}
+        {/* {this.state.tags.length === 0 && "Please create a new tag!"} */}
         {/* {this.renderTags()} */}
       </div>
     );
   }
 
-  handleIncrement = () => {
-    // this.state.count++;
-    // console.log(product);
-    this.setState({ value: this.state.value + 1 });
-  };
+  // old code would be deleted in production
+  // handleIncrement = () => {
+  //   // this.state.count++;
+  //   // console.log(product);
+  //   this.setState({ value: this.state.value + 1 });
+  // };
 
   getBadgeClasses() {
     let classes = "badge m-2 badge-";
-    classes += this.state.value === 0 ? "warning" : "primary";
+    classes += this.props.counter.value === 0 ? "warning" : "primary";
     return classes;
   }
 
@@ -79,8 +81,8 @@ class Counter extends Component {
   };
 
   formatCount() {
-    const { value: value } = this.state;
-
+    // const { value: value } = this.state;
+    const value = this.props.counter.value;
     // if (count === 0) {
     //   return "Zero";
     // } else {
