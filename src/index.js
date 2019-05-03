@@ -4,9 +4,9 @@ import ReactDOM from "react-dom";
 import App from "./App.jsx";
 
 import "bootstrap/dist/css/bootstrap.css";
-import Counters from "./components/counters";
-import SimpleNav from "./components/simpleNav";
-import Item from "./components/item";
+// import Counters from "./components/counters";
+// import SimpleNav from "./components/simpleNav";
+// import Item from "./components/item";
 // const element = <h1>Hello world</h1>;
 
 // console.log(element);

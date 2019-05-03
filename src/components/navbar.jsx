@@ -5,7 +5,7 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="navbar navbar-dark bg-dark">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand" href="/">
           Playground
         </a>
       </nav>
