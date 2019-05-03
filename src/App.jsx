@@ -79,10 +79,24 @@ class App extends Component {
     this.setState({ counter: currentCounters });
   };
 
+  getTotalCountersValue = () => {
+    let total = 0;
+    const counters = this.state.counters.map(c => {
+      // console.log("ID: " + c.id + " value:" + c.value);
+      // total = total + c.value;
+      total += c.value;
+    });
+    return total;
+  };
+
   render() {
     return (
       <React.Fragment>
-        <NavBar />
+        <NavBar
+          distinctCounters={this.state.counters.filter(c => c.value > 0).length}
+          // totalValue={this.state.totalValue}
+          totalValue={this.getTotalCountersValue()}
+        />
         <main className="container">
           <Counters
             counters={this.state.counters}
