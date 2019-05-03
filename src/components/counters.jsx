@@ -3,7 +3,7 @@ import Counter from "./counter";
 
 class Counters extends Component {
   render() {
-    // destructing
+    // destructuring
     const {
       onReset,
       onDelete,
