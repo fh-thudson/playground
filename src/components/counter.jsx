@@ -47,6 +47,7 @@ class Counter extends Component {
         </button>
         <button
           // onClick={this.resetCountToZero}
+          onClick={() => this.props.resetCounterById(this.props.counter)}
           className="btn btn-warning btn-sm m-2"
         >
           reset

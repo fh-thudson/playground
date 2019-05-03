@@ -39,10 +39,18 @@ class App extends Component {
     this.setState({ counters });
   };
 
+  resetCounterById = counter => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value = 0;
+    this.setState({ counters });
+  };
+
   handleDelete = counterId => {
     console.log("Handle Delete Event fired!", counterId);
-    // const newCounters = this.state.counters.filter(c => c.id !== counterId); // great example of why I dislike react
-    // this.setState({ counters: newCounters });
+    const newCounters = this.state.counters.filter(c => c.id !== counterId); // great example of why I dislike react
+    this.setState({ counters: newCounters });
   };
 
   // getCurrentId = () => {
@@ -81,6 +89,7 @@ class App extends Component {
             onReset={this.resetValues}
             onDelete={this.handleDelete}
             addNewCounter={this.addNewCounter}
+            resetCounterById={this.resetCounterById}
             handleIncrement={this.handleIncrement}
           />
         </main>

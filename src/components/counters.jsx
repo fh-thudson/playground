@@ -19,6 +19,7 @@ class Counters extends Component {
             key={counter.id}
             onDelete={this.props.onDelete}
             handleIncrement={this.props.handleIncrement}
+            resetCounterById={this.props.resetCounterById}
             counter={counter}
           />
         ))}
