@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import NavBar from "./components/navbar";
 import Counters from "./components/counters";
+import Search from "./components/search";
+import Types from "./components/types";
 import "./App.css";
 
 class App extends Component {
   state = {
-    counters: [{ id: 1, value: 0 }, { id: 2, value: 0 }, { id: 3, value: 0 }]
+    counters: [{ id: 1, value: 0 }, { id: 2, value: 0 }, { id: 3, value: 0 }],
+    types: []
   };
 
   resetValues = () => {
@@ -61,6 +64,37 @@ class App extends Component {
   //   return lastId;
   // };
 
+  handleKeyUpOnSearch = () => {
+    let s = document.getElementById("textInput");
+    console.log(s.value);
+    fetch(
+      "https://esi.evetech.net/latest/search/?categories=inventory_type&datasource=tranquility&language=en-us&search=" +
+        s.value +
+        "&strict=false"
+    )
+      .then(results => {
+        // console.log(results);
+        if (results !== null) {
+          return results.json();
+        } else {
+          return "";
+        }
+      })
+      .then(data => {
+        // const types =
+        // console.log(data.inventory_type);
+        if (data.inventory_type !== undefined && data.inventory_type !== null) {
+          const types = data.inventory_type.map(id => {
+            return {
+              id: id,
+              imgUrl: "https://imageserver.eveonline.com/Type/" + id + "_64.png"
+            };
+          });
+          this.setState((this.state.types = types));
+        }
+      });
+  };
+
   addNewCounter = () => {
     console.log("Add Call");
     // should be handled on the API server side but time to cowboy up.
@@ -106,6 +140,10 @@ class App extends Component {
             resetCounterById={this.resetCounterById}
             handleIncrement={this.handleIncrement}
           />
+          <hr />
+          <Search handleOnKeyUp={this.handleKeyUpOnSearch} />
+          <hr />
+          <Types types={this.state.types} />
         </main>
       </React.Fragment>
     );
