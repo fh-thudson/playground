@@ -5,7 +5,8 @@ class Type extends Component {
   render() {
     return (
       <div>
-        {this.props.id} {this.props.imgUrl}
+        <img src={this.props.type.imgUrl} />
+        {this.props.type.id}
       </div>
     );
   }

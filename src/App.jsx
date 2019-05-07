@@ -90,6 +90,7 @@ class App extends Component {
               imgUrl: "https://imageserver.eveonline.com/Type/" + id + "_64.png"
             };
           });
+          // console.log(types);
           this.setState((this.state.types = types));
         }
       });
