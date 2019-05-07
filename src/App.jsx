@@ -8,7 +8,7 @@ import Search from "./components/search";
 import Types from "./components/types";
 import ErrorPage from "./components/errorpage";
 
-import "./App.css";
+// import "./App.css";
 
 const ContextType = {
   // Enables critical path CSS rendering
