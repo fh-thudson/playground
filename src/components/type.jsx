@@ -4,10 +4,15 @@ class Type extends Component {
   state = {};
   render() {
     return (
-      <div>
-        <img src={this.props.type.imgUrl} />
-        {this.props.type.id}
-      </div>
+      <tr>
+        <td>
+          <button className="btn btn-sm btn-primary">View Orders</button>
+        </td>
+        <td>
+          <img src={this.props.type.imgUrl} />
+        </td>
+        <td>{this.props.type.id}</td>
+      </tr>
     );
   }
 }
