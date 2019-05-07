@@ -12,4 +12,4 @@ import "bootstrap/dist/css/bootstrap.css";
 // console.log(element);
 // ReactDOM.render(<Counters />, document.getElementById("main"));
 // ReactDOM.render(<SimpleNav />, document.getElementById("navHolder"));
-ReactDOM.render(<App />, document.getElementById("root"));
+// ReactDOM.render(<App />, document.getElementById("root"));

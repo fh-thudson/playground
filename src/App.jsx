@@ -1,15 +1,53 @@
 import React, { Component } from "react";
+import { Router, Route, Switch, withRouter } from "react-router";
+import { connect, Provider as ReduxProvider } from "react-redux";
+import PropTypes from "prop-types";
 import NavBar from "./components/navbar";
 import Counters from "./components/counters";
 import Search from "./components/search";
 import Types from "./components/types";
+import ErrorPage from "./components/errorpage";
+
 import "./App.css";
 
-class App extends Component {
+const ContextType = {
+  // Enables critical path CSS rendering
+  // https://github.com/kriasoft/isomorphic-style-loader
+  insertCss: PropTypes.func.isRequired,
+  // Universal HTTP client
+  fetch: PropTypes.func.isRequired,
+  // Integrate Redux
+  // http://redux.js.org/docs/basics/UsageWithReact.html
+  ...ReduxProvider.childContextTypes
+};
+
+class App extends React.PureComponent {
   state = {
     counters: [{ id: 1, value: 0 }, { id: 2, value: 0 }, { id: 3, value: 0 }],
     types: []
   };
+
+  static propTypes = {
+    context: PropTypes.shape(ContextType),
+    store: PropTypes.any // eslint-disable-line
+    // isAuthenticated: PropTypes.bool.isRequired,
+  };
+
+  static defaultProps = {
+    context: null
+  };
+
+  static contextTypes = {
+    router: PropTypes.any,
+    store: PropTypes.any
+  };
+
+  static childContextTypes = ContextType;
+
+  getChildContext() {
+    // fixme. find better solution?
+    return this.props.context || this.context.router.staticContext;
+  }
 
   resetValues = () => {
     this.state.counters.map(counter => console.log(counter));
@@ -124,31 +162,99 @@ class App extends Component {
     return total;
   };
 
+  // original app
+  // render() {
+  //   return (
+  //     <React.Fragment>
+  //       <NavBar
+  //         distinctCounters={this.state.counters.filter(c => c.value > 0).length}
+  //         // totalValue={this.state.totalValue}
+  //         totalValue={this.getTotalCountersValue()}
+  //       />
+  //       <main className="container">
+  //         <Counters
+  //           counters={this.state.counters}
+  //           onReset={this.resetValues}
+  //           onDelete={this.handleDelete}
+  //           addNewCounter={this.addNewCounter}
+  //           resetCounterById={this.resetCounterById}
+  //           handleIncrement={this.handleIncrement}
+  //         />
+  //         <hr />
+  //         <Search handleOnKeyUp={this.handleKeyUpOnSearch} />
+  //         <hr />
+  //         <Types types={this.state.types} />
+  //       </main>
+  //     </React.Fragment>
+  //   );
+  // }
+
   render() {
     return (
-      <React.Fragment>
-        <NavBar
-          distinctCounters={this.state.counters.filter(c => c.value > 0).length}
-          // totalValue={this.state.totalValue}
-          totalValue={this.getTotalCountersValue()}
-        />
-        <main className="container">
-          <Counters
-            counters={this.state.counters}
-            onReset={this.resetValues}
-            onDelete={this.handleDelete}
-            addNewCounter={this.addNewCounter}
-            resetCounterById={this.resetCounterById}
-            handleIncrement={this.handleIncrement}
-          />
-          <hr />
-          <Search handleOnKeyUp={this.handleKeyUpOnSearch} />
-          <hr />
-          <Types types={this.state.types} />
-        </main>
-      </React.Fragment>
+      <div style={{ height: "100vh" }}>
+        <Router>
+          <Switch>
+            <Route
+              path="/"
+              exact
+              component={
+                <React.Fragment>
+                  <NavBar
+                    distinctCounters={
+                      this.state.counters.filter(c => c.value > 0).length
+                    }
+                    // totalValue={this.state.totalValue}
+                    totalValue={this.getTotalCountersValue()}
+                  />
+                  <main className="container">
+                    <hr />
+                    <Search handleOnKeyUp={this.handleKeyUpOnSearch} />
+                    <hr />
+                    <Types types={this.state.types} />
+                  </main>
+                </React.Fragment>
+              }
+            />
+            <Route
+              path="/counter"
+              exact
+              component={
+                <React.Fragment>
+                  <NavBar
+                    distinctCounters={
+                      this.state.counters.filter(c => c.value > 0).length
+                    }
+                    // totalValue={this.state.totalValue}
+                    totalValue={this.getTotalCountersValue()}
+                  />
+                  <main className="container">
+                    <Counters
+                      counters={this.state.counters}
+                      onReset={this.resetValues}
+                      onDelete={this.handleDelete}
+                      addNewCounter={this.addNewCounter}
+                      resetCounterById={this.resetCounterById}
+                      handleIncrement={this.handleIncrement}
+                    />
+                  </main>
+                </React.Fragment>
+              }
+            />
+            <Route component={ErrorPage} />
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(store) {
+  return {
+    // isAuthenticated: store.auth.isAuthenticated,
+    madeUp: 10
+  };
+}
+
+export default withRouter(connect(mapStateToProps)(App));
+
+// export default App;
