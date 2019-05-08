@@ -18,6 +18,8 @@ class NavBar extends Component {
               {this.props.totalValue}
             </span>
           </a>
+          <a href="/search/">Search</a>
+          <a href="/counters/">Counters</a>
         </nav>
       </React.Fragment>
     );

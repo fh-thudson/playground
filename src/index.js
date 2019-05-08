@@ -3,10 +3,11 @@ import ReactDOM from "react-dom";
 // import { Router, Route, Switch } from "react-router";
 
 import "bootstrap/dist/css/bootstrap.css";
+import AppRouter from "./App2";
 
 // import App from "./App.jsx";
 // import Counters from "./components/counters";
-import ErrorPage from "./components/errorpage";
+// import ErrorPage from "./components/errorpage";
 // const routing = (
 //   <Router>
 //     <div>
@@ -18,5 +19,6 @@ import ErrorPage from "./components/errorpage";
 // ReactDOM.render(<Counters />, document.getElementById("main"));
 // ReactDOM.render(<SimpleNav />, document.getElementById("navHolder"));
 // ReactDOM.render(<App />, document.getElementById("root"));
-ReactDOM.render(<ErrorPage />, document.getElementById("root"));
+// ReactDOM.render(<ErrorPage />, document.getElementById("root"));
+ReactDOM.render(<AppRouter />, document.getElementById("root"));
 // ReactDOM.render(routing, document.getElementById("root"));
